@@ -1,0 +1,64 @@
+name: Daily Robot News
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TODAY=$(date -u '+%Y年%-m月%-d日')
+          NEWS=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":3000,\"messages\":[{\"role\":\"user\",\"content\":\"你是机器人领域资讯编辑。生成今天(${TODAY})机器人领域8-10条资讯，涵盖人形机器人、开源框架、论文、产业融资。严格只输出JSON:{\\\"items\\\":[{\\\"title\\\":\\\"标题\\\",\\\"summary\\\":\\\"摘要单行\\\",\\\"reason\\\":\\\"推荐理由\\\",\\\"source\\\":\\\"来源\\\",\\\"time\\\":\\\"今日\\\",\\\"category\\\":\\\"hardware或software或paper或industry或opensource\\\",\\\"score\\\":75,\\\"tags\\\":[\\\"标签\\\"],\\\"url\\\":\\\"\\\"}],\\\"total_searched\\\":80}\"}]}")
+          echo "$NEWS" | python3 -c "
+import sys,json,datetime
+d=json.load(sys.stdin)
+t=''.join(b['text'] for b in d['content'] if b['type']=='text')
+s=t.index('{');depth=0;e=-1
+for i,c in enumerate(t[s:],s):
+  if c=='{':depth+=1
+  elif c=='}':
+    depth-=1
+    if depth==0:e=i;break
+r=json.loads(t[s:e+1])
+r['generatedAt']=datetime.datetime.utcnow().isoformat()+'Z'
+json.dump(r,open('public/data/news.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+print('items:',len(r.get('items',[])))
+"
+          DAILY=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"生成今天(${TODAY})机器人日报，严格只输出JSON:{\\\"sections\\\":[{\\\"title\\\":\\\"版块名\\\",\\\"items\\\":[\\\"要闻1\\\",\\\"要闻2\\\"]}]}，固定4版块:硬件发布、开源项目、论文速递、产业动态，每版块3-4条。\"}]}")
+          echo "$DAILY" | python3 -c "
+import sys,json,datetime
+d=json.load(sys.stdin)
+t=''.join(b['text'] for b in d['content'] if b['type']=='text')
+s=t.index('{');depth=0;e=-1
+for i,c in enumerate(t[s:],s):
+  if c=='{':depth+=1
+  elif c=='}':
+    depth-=1
+    if depth==0:e=i;break
+r=json.loads(t[s:e+1])
+r['generatedAt']=datetime.datetime.utcnow().isoformat()+'Z'
+json.dump(r,open('public/data/daily.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+print('sections:',len(r.get('sections',[])))
+"
+      - name: Commit
+        run: |
+          git config user.name "Robot LAB Bot"
+          git config user.email "bot@robot-lab.com"
+          git add public/data/
+          git diff --staged --quiet || git commit -m "Daily update $(date -u '+%Y-%m-%d')"
+          git push
