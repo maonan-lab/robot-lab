@@ -18,95 +18,68 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          TODAY=$(date -u '+%Y年%-m月%-d日')
-
-          # Generate news
-          curl -s https://api.anthropic.com/v1/messages \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "content-type: application/json" \
-            --data-binary @- << CURL_EOF > /tmp/news_raw.json
-          {
-            "model": "claude-sonnet-4-20250514",
-            "max_tokens": 3000,
-            "messages": [{
-              "role": "user",
-              "content": "你是机器人领域资讯编辑。生成今天(TODAY_PLACEHOLDER)机器人领域8-10条资讯，涵盖人形机器人、开源框架、论文、产业融资。严格只输出JSON，不要有任何其他文字：{\"items\":[{\"title\":\"标题\",\"summary\":\"摘要单行\",\"reason\":\"推荐理由\",\"source\":\"来源\",\"time\":\"今日\",\"category\":\"hardware或software或paper或industry或opensource\",\"score\":75,\"tags\":[\"标签\"],\"url\":\"\"}],\"total_searched\":80}"
-            }]
-          }
-          CURL_EOF
-
           python3 << 'PYEOF'
-          import json, datetime, re, sys
+          import urllib.request, urllib.error, json, datetime, os, sys
 
-          today = datetime.date.today().isoformat()
+          api_key = os.environ['ANTHROPIC_API_KEY']
+          today = datetime.date.today().strftime('%Y年%-m月%-d日')
 
-          # Parse news
-          with open('/tmp/news_raw.json') as f:
-              data = json.load(f)
+          def call_claude(prompt):
+              payload = json.dumps({
+                  "model": "claude-sonnet-4-20250514",
+                  "max_tokens": 3000,
+                  "messages": [{"role": "user", "content": prompt}]
+              }).encode('utf-8')
+              req = urllib.request.Request(
+                  'https://api.anthropic.com/v1/messages',
+                  data=payload,
+                  headers={
+                      'x-api-key': api_key,
+                      'anthropic-version': '2023-06-01',
+                      'content-type': 'application/json'
+                  }
+              )
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  data = json.loads(resp.read())
+              return ''.join(b['text'] for b in data['content'] if b['type'] == 'text')
 
-          text = ''.join(b['text'] for b in data['content'] if b['type'] == 'text')
-          start = text.index('{')
-          depth = 0
-          end = -1
-          for i, c in enumerate(text[start:], start):
-              if c == '{': depth += 1
-              elif c == '}':
-                  depth -= 1
-                  if depth == 0: end = i; break
+          def extract_json(text):
+              s = text.index('{')
+              depth = 0; e = -1
+              for i, c in enumerate(text[s:], s):
+                  if c == '{': depth += 1
+                  elif c == '}':
+                      depth -= 1
+                      if depth == 0: e = i; break
+              raw = text[s:e+1]
+              raw = raw.replace('\u201c','"').replace('\u201d','"')
+              import re
+              raw = re.sub(r',\s*([}\]])', r'\1', raw)
+              return json.loads(raw)
 
-          result = json.loads(text[start:end+1])
-          result['generatedAt'] = datetime.datetime.utcnow().isoformat() + 'Z'
+          now = datetime.datetime.utcnow().isoformat() + 'Z'
 
+          # News
+          print(f'Generating news for {today}...')
+          news_prompt = f'你是机器人领域资讯编辑。生成今天({today})机器人领域8-10条资讯，涵盖人形机器人、开源框架、论文、产业融资。严格只输出JSON不要有任何其他文字：{{"items":[{{"title":"标题","summary":"摘要单行","reason":"推荐理由","source":"来源","time":"今日","category":"hardware或software或paper或industry或opensource","score":75,"tags":["标签"],"url":""}}],"total_searched":80}}'
+          news_text = call_claude(news_prompt)
+          news = extract_json(news_text)
+          news['generatedAt'] = now
+          os.makedirs('public/data', exist_ok=True)
           with open('public/data/news.json', 'w', encoding='utf-8') as f:
-              json.dump(result, f, ensure_ascii=False, indent=2)
+              json.dump(news, f, ensure_ascii=False, indent=2)
+          print(f'News done: {len(news.get("items",[]))} items')
 
-          print(f"News: {len(result.get('items', []))} items")
-          PYEOF
-
-          # Generate daily
-          curl -s https://api.anthropic.com/v1/messages \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "content-type: application/json" \
-            --data-binary @- << CURL_EOF > /tmp/daily_raw.json
-          {
-            "model": "claude-sonnet-4-20250514",
-            "max_tokens": 2000,
-            "messages": [{
-              "role": "user",
-              "content": "生成今天(TODAY_PLACEHOLDER)的机器人日报。严格只输出JSON：{\"sections\":[{\"title\":\"版块名\",\"items\":[\"要闻1\",\"要闻2\"]}]}，固定4版块：硬件发布、开源项目、论文速递、产业动态，每版块3-4条。"
-            }]
-          }
-          CURL_EOF
-
-          python3 << 'PYEOF'
-          import json, datetime
-
-          with open('/tmp/daily_raw.json') as f:
-              data = json.load(f)
-
-          text = ''.join(b['text'] for b in data['content'] if b['type'] == 'text')
-          start = text.index('{')
-          depth = 0
-          end = -1
-          for i, c in enumerate(text[start:], start):
-              if c == '{': depth += 1
-              elif c == '}':
-                  depth -= 1
-                  if depth == 0: end = i; break
-
-          result = json.loads(text[start:end+1])
-          result['generatedAt'] = datetime.datetime.utcnow().isoformat() + 'Z'
-
+          # Daily
+          print('Generating daily digest...')
+          daily_prompt = f'生成今天({today})的机器人日报。严格只输出JSON不要有任何其他文字：{{"sections":[{{"title":"版块名","items":["要闻1","要闻2","要闻3"]}}]}}，固定4版块：硬件发布、开源项目、论文速递、产业动态，每版块3-4条。'
+          daily_text = call_claude(daily_prompt)
+          daily = extract_json(daily_text)
+          daily['generatedAt'] = now
           with open('public/data/daily.json', 'w', encoding='utf-8') as f:
-              json.dump(result, f, ensure_ascii=False, indent=2)
-
-          print(f"Daily: {len(result.get('sections', []))} sections")
+              json.dump(daily, f, ensure_ascii=False, indent=2)
+          print(f'Daily done: {len(daily.get("sections",[]))} sections')
           PYEOF
-
-          # Replace TODAY_PLACEHOLDER in json files
-          sed -i "s/TODAY_PLACEHOLDER/$TODAY/g" public/data/news.json public/data/daily.json
 
       - name: Commit and push
         run: |
