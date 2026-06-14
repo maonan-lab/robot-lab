@@ -98,4 +98,5 @@ Use exactly 4 sections: 硬件发布, 开源项目, 论文速递, 产业动态. 
           git config user.email "bot@robot-lab.com"
           git add public/data/
           git diff --staged --quiet || git commit -m "Daily update $(date -u '+%Y-%m-%d')"
+          git pull --rebase origin main
           git push
