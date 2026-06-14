@@ -1,141 +1,166 @@
 {
   "items": [
     {
-      "title": "Tesla Bot Optimus 2.0正式发布，搭载全新神经网络芯片",
-      "summary": "特斯拉发布第二代人形机器人Optimus 2.0，采用4nm工艺神经网络处理器，运动能力提升40%，可执行复杂家务任务",
-      "reason": "重大产品发布，技术突破显著",
-      "source": "Tesla官方",
-      "time": "今日",
-      "category": "hardware",
-      "score": 92,
-      "tags": [
-        "人形机器人",
-        "特斯拉",
-        "神经网络"
-      ],
-      "url": ""
-    },
-    {
-      "title": "OpenRobotics发布ROS 3.0 Alpha版本",
-      "summary": "机器人操作系统ROS 3.0首个测试版发布，支持实时计算、云原生部署和WebAssembly，性能提升3倍",
-      "reason": "开源生态重要更新，影响整个机器人开发社区",
-      "source": "Open Robotics Foundation",
-      "time": "今日",
-      "category": "opensource",
-      "score": 88,
-      "tags": [
-        "ROS",
-        "开源",
-        "操作系统"
-      ],
-      "url": ""
-    },
-    {
-      "title": "MIT发表突破性论文：机器人触觉感知达到人类水平",
-      "summary": "MIT CSAIL研究团队在Nature发表论文，提出新型触觉传感算法，机器人可识别材质、温度和纹理，准确率达98.7%",
-      "reason": "顶级期刊重要突破，触觉技术里程碑",
-      "source": "Nature",
-      "time": "今日",
-      "category": "paper",
-      "score": 94,
-      "tags": [
-        "触觉感知",
-        "MIT",
-        "传感器"
-      ],
-      "url": ""
-    },
-    {
-      "title": "Figure AI完成6.5亿美元C轮融资，估值达26亿美元",
-      "summary": "人形机器人公司Figure AI宣布完成6.5亿美元C轮融资，微软、英伟达领投，资金将用于Figure-02量产和AI能力提升",
-      "reason": "大额融资反映市场对人形机器人前景看好",
-      "source": "Figure AI",
+      "title": "Figure AI实现量产突破：BotQ工厂达到每小时生产一台机器人",
+      "summary": "Figure AI在2026年6月实现重大生产里程碑，其BotQ工厂现可每小时生产一台Figure 03机器人。同时波士顿动力电动版Atlas开始向现代和DeepMind交付首批单元。",
+      "reason": "标志着人形机器人从原型阶段转向规模化商业部署的关键转折点",
+      "source": "Humanoid Press",
       "time": "今日",
       "category": "industry",
-      "score": 85,
+      "score": 95,
       "tags": [
-        "融资",
-        "人形机器人",
-        "Figure AI"
+        "量产",
+        "Figure AI",
+        "Atlas",
+        "商业化"
       ],
-      "url": ""
+      "url": "https://www.humanoid.press/"
     },
     {
-      "title": "波士顿动力Atlas机器人新增自主导航能力",
-      "summary": "Boston Dynamics为Atlas人形机器人升级软件，新增室内外自主导航功能，可在复杂环境中规划路径并避障",
-      "reason": "知名机器人公司技术升级，实用性大幅提升",
-      "source": "Boston Dynamics",
+      "title": "Unitree机器人在2025年出货5500+台，领跑全球人形机器人销量",
+      "summary": "中国优树科技在2025年出货超过5500台人形机器人，成为全球销量第一的厂商。该公司的G1机器人售价16000美元，大幅低于竞争对手的15-30万美元定价。",
+      "reason": "展现了中国在人形机器人大规模商业化方面的领先地位和成本优势",
+      "source": "Unitree Blog",
       "time": "今日",
       "category": "hardware",
-      "score": 82,
-      "tags": [
-        "Boston Dynamics",
-        "自主导航",
-        "Atlas"
-      ],
-      "url": ""
-    },
-    {
-      "title": "谷歌开源PaLM-Robotics大语言模型框架",
-      "summary": "Google Research开源专为机器人设计的大语言模型框架PaLM-Robotics，支持自然语言指令控制和多模态理解",
-      "reason": "科技巨头开源AI框架，推动机器人智能化发展",
-      "source": "Google Research",
-      "time": "今日",
-      "category": "opensource",
       "score": 90,
       "tags": [
-        "谷歌",
-        "大语言模型",
-        "开源"
+        "Unitree",
+        "出货量",
+        "价格优势",
+        "中国制造"
       ],
-      "url": ""
+      "url": "https://blog.redhub.ai/unitree-robotics-humanoid-robots/"
     },
     {
-      "title": "斯坦福发布机器人学习新范式：One-Shot Imitation Learning",
-      "summary": "斯坦福大学研究团队在ICML发表论文，提出单次模仿学习算法，机器人仅需观看一次演示即可掌握新技能",
-      "reason": "学习效率突破，对机器人训练具有重大意义",
-      "source": "Stanford University",
+      "title": "arXiv发布多篇机器人学前沿论文：多模态导航与强化学习新进展",
+      "summary": "最新论文涵盖SpaceVLN零样本视觉语言导航、多智能体强化学习指导的生成式运动规划等领域。多项研究被ICRA 2026和ICLR 2026接收。",
+      "reason": "代表了学术界在机器人感知、规划和学习方面的最新研究突破",
+      "source": "arXiv.org",
       "time": "今日",
       "category": "paper",
-      "score": 87,
+      "score": 85,
       "tags": [
-        "模仿学习",
-        "斯坦福",
-        "机器学习"
+        "视觉导航",
+        "强化学习",
+        "多智能体",
+        "学术研究"
       ],
-      "url": ""
+      "url": "https://arxiv.org/list/cs.RO/recent"
     },
     {
-      "title": "优必选科技Walker S机器人进入商用阶段",
-      "summary": "优必选科技宣布Walker S人形机器人开始商业化部署，首批50台已交付给酒店和养老院，定价98万元人民币",
-      "reason": "国产人形机器人商业化里程碑事件",
-      "source": "优必选科技",
+      "title": "开源机器人项目OpenAMRobot发布模块化双臂移动机器人平台",
+      "summary": "OpenAMRobot推出开源的模块化双臂自主移动机器人，专为可负担的制造和物流应用设计。该平台提供完整的机械、电气和软件设计文档。",
+      "reason": "为中小企业和研究机构提供了高质量的开源机器人基础设施，降低了技术门槛",
+      "source": "GitHub",
+      "time": "今日",
+      "category": "opensource",
+      "score": 80,
+      "tags": [
+        "开源",
+        "双臂机器人",
+        "模块化",
+        "移动平台"
+      ],
+      "url": "https://github.com/openAMRobot"
+    },
+    {
+      "title": "2026年机器人行业五大趋势：AI驱动的自主性成主流",
+      "summary": "国际机器人联合会发布报告指出，AI驱动的自主机器人正成为主流，全球工业机器人市场价值达167亿美元创历史新高。网络安全威胁也随之增加。",
+      "reason": "权威机构对整个机器人产业发展方向的重要预测和分析",
+      "source": "International Federation of Robotics",
       "time": "今日",
       "category": "industry",
-      "score": 83,
+      "score": 88,
       "tags": [
-        "优必选",
-        "商业化",
-        "Walker"
+        "行业趋势",
+        "AI自主性",
+        "市场规模",
+        "网络安全"
       ],
-      "url": ""
+      "url": "https://ifr.org/news/top-5-global-robotics-trends-2026/"
     },
     {
-      "title": "NVIDIA发布Isaac Sim 4.0机器人仿真平台",
-      "summary": "英伟达发布新版Isaac Sim仿真平台，支持实时光线追踪、物理仿真精度提升10倍，可模拟100万个机器人同时运行",
-      "reason": "仿真技术重大升级，助力机器人大规模训练",
-      "source": "NVIDIA",
+      "title": "强化学习在机器人控制领域获得突破：深度RL实现工厂自主协调",
+      "summary": "最新研究显示，深度强化学习在机器人自主导航和控制方面取得重大突破，特别是在工厂自动化集群中实现自主协调，大幅减少人工操作需求。",
+      "reason": "强化学习技术在实际工业应用中的重要进展，具有广泛应用前景",
+      "source": "Medium AI Superior",
+      "time": "今日",
+      "category": "software",
+      "score": 83,
+      "tags": [
+        "强化学习",
+        "自主控制",
+        "工厂自动化",
+        "深度学习"
+      ],
+      "url": "https://medium.com/@angelosorte1/robot-and-ai-breakthroughs-in-2026-from-soft-robotics-to-quantum-linked-automation-6cda692e3ac8"
+    },
+    {
+      "title": "索尼AI发布Ace：结合强化学习的实时机器人系统",
+      "summary": "索尼AI发布Ace系统，结合先进传感器技术、强化学习和精密硬件，在动态环境中实现专家级实时感知、规划和行动能力，扩展了虚拟到现实世界的AI应用。",
+      "reason": "展示了AI从虚拟环境成功迁移到现实世界的重要技术突破",
+      "source": "Sony AI",
       "time": "今日",
       "category": "software",
       "score": 86,
       "tags": [
-        "英伟达",
-        "仿真",
-        "Isaac Sim"
+        "实时AI",
+        "传感器融合",
+        "虚实迁移",
+        "索尼"
       ],
-      "url": ""
+      "url": "https://ai.sony/news/sony-ai-announces-breakthrough-research-in-real-world-artificial-intelligence-and-robotics"
+    },
+    {
+      "title": "机器人资金市场活跃：Saronic获得17.5亿美元D轮融资",
+      "summary": "2026年机器人融资保持活跃，其中海事机器人公司Saronic获得17.5亿美元D轮融资，AI驱动的机器人软件公司Sereact获得1.1亿美元B轮融资。",
+      "reason": "反映了投资界对机器人技术商业化前景的强烈信心和资本支持",
+      "source": "New Market Pitch",
+      "time": "今日",
+      "category": "industry",
+      "score": 82,
+      "tags": [
+        "融资",
+        "海事机器人",
+        "AI软件",
+        "投资趋势"
+      ],
+      "url": "https://newmarketpitch.com/blogs/news/robotics-funding-news"
+    },
+    {
+      "title": "NVIDIA发布新物理AI模型，全球合作伙伴推出下一代机器人",
+      "summary": "NVIDIA发布最新物理AI模型，与全球合作伙伴共同推出下一代机器人产品。这标志着AI与机器人硬件深度融合的新阶段。",
+      "reason": "NVIDIA作为AI芯片领导者进军物理AI领域，将推动整个行业发展",
+      "source": "NVIDIA Newsroom",
+      "time": "今日",
+      "category": "hardware",
+      "score": 84,
+      "tags": [
+        "NVIDIA",
+        "物理AI",
+        "芯片",
+        "合作伙伴"
+      ],
+      "url": "https://nvidianews.nvidia.com/news/nvidia-releases-new-physical-ai-models-as-global-partners-unveil-next-generation-robots"
+    },
+    {
+      "title": "机器人政策学习新突破：从演示和视觉奖励中学习序列操作任务",
+      "summary": "最新研究提出了让机器人从视觉观察中学习奖励信号的方法，无需专家设计奖励函数。该方法在复合奖励学习方面表现优于全局奖励，专家演示有助于引导RL策略。",
+      "reason": "解决了强化学习中奖励函数设计的关键问题，提高了机器人学习效率",
+      "source": "Science Direct",
+      "time": "今日",
+      "category": "paper",
+      "score": 79,
+      "tags": [
+        "策略学习",
+        "视觉奖励",
+        "专家演示",
+        "序列操作"
+      ],
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0921889025004087"
     }
   ],
   "total_searched": 80,
-  "generatedAt": "2026-06-14T14:16:17.922845Z"
+  "generatedAt": "2026-06-14T15:25:53.622059Z"
 }
