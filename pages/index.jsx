@@ -74,9 +74,9 @@ export default function RobotLab(){
   const[todayStr,setTodayStr]=useState("");
   useEffect(()=>{
     setTodayStr(new Date().toLocaleDateString("zh-CN",{month:"long",day:"numeric",weekday:"short"}));
-    fetch("/data/news.json").then(r=>r.json()).then(data=>{setNews(data.items||[]);setGeneratedAt(data.generatedAt||"");setLoading(false);}).catch(()=>setLoading(false));
+    fetch("/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/data/news-"+latest+".json":"/data/news.json";return fetch(url).then(r=>r.json());}).then(data=>{setNews(data.items||[]);setGeneratedAt(data.generatedAt||"");setLoading(false);}).catch(()=>setLoading(false));
   },[]);
-  useEffect(()=>{if(tab==="daily"&&!daily){fetch("/data/daily.json").then(r=>r.json()).then(data=>setDaily(data.sections||[])).catch(()=>{});}},[tab]);
+  useEffect(()=>{if(tab==="daily"&&!daily){fetch("/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/data/daily-"+latest+".json":"/data/daily.json";return fetch(url).then(r=>r.json());}).then(data=>setDaily(data.sections||[])).catch(()=>{});}},[tab]);
   const counts={all:news.length,hardware:news.filter(n=>n.category==="hardware").length,software:news.filter(n=>n.category==="software").length,paper:news.filter(n=>n.category==="paper").length,industry:news.filter(n=>n.category==="industry").length,opensource:news.filter(n=>n.category==="opensource").length};
   let filtered=[...news];
   if(cat!=="all")filtered=filtered.filter(n=>n.category===cat);
@@ -86,12 +86,12 @@ export default function RobotLab(){
   filtered.sort((a,b)=>b.score-a.score);
   const updateTime=generatedAt?new Date(generatedAt).toLocaleDateString("zh-CN",{month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"}):"每日 08:00 自动更新";
   return(<>
-    <Head><title>Robot LAB</title><meta name="viewport"content="width=device-width, initial-scale=1"/><link rel="icon"href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>"/></Head>
+    <Head><title>Dr. Mao | Robot LAB</title><meta name="viewport"content="width=device-width, initial-scale=1"/><link rel="icon"href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>"/></Head>
     <style>{`*{box-sizing:border-box;margin:0;padding:0;}@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,255,0.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(0,229,255,0)}}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.ci{animation:fadeUp 0.35s ease both;}.ci:nth-child(1){animation-delay:0.03s}.ci:nth-child(2){animation-delay:0.07s}.ci:nth-child(3){animation-delay:0.11s}.ci:nth-child(4){animation-delay:0.15s}.ci:nth-child(5){animation-delay:0.19s}.ci:nth-child(6){animation-delay:0.23s}.ci:nth-child(7){animation-delay:0.27s}.ci:nth-child(8){animation-delay:0.31s}a:hover{opacity:0.85;}input{box-sizing:border-box;}`}</style>
     <div style={S.root}>
       <div style={S.grid}/>
       <nav style={S.nav}>
-        <div style={S.logo}><span style={S.dot}/>Robot LAB</div>
+        <div style={S.logo}><span style={S.dot}/>Dr. Mao | Robot LAB</div>
         {[["selected","精选"],["daily","机器人日报"],["about","关于"]].map(([id,label])=><button key={id}style={S.navTab(tab===id)}onClick={()=>setTab(id)}>{label}</button>)}
         <span style={S.dateBadge}>{todayStr}</span>
       </nav>
@@ -119,7 +119,7 @@ export default function RobotLab(){
             {daily&&daily.length>0?daily.map((sec,i)=><div key={i}style={S.reportSection}><div style={S.reportHeader}>⬡ {sec.title}</div>{sec.items.map((item,j)=><div key={j}style={{...S.reportItem,borderBottom:j<sec.items.length-1?"1px solid rgba(99,179,237,0.08)":"none"}}>· {item}</div>)}</div>):<div style={S.emptyState}><div style={{fontSize:48,marginBottom:16,opacity:0.3}}>📰</div><p style={{fontSize:14,lineHeight:1.9,color:"#475569"}}>今日日报正在生成，每天 08:00 自动更新</p></div>}
           </>}
           {tab==="about"&&<div style={{maxWidth:580}}>
-            <div style={{fontFamily:"monospace",fontSize:22,color:"#00e5ff",marginBottom:"1.25rem",fontWeight:700}}>Robot LAB</div>
+            <div style={{fontFamily:"monospace",fontSize:22,color:"#00e5ff",marginBottom:"1.25rem",fontWeight:700}}>Dr. Mao | Robot LAB</div>
             <p style={{fontSize:14,color:"#94a3b8",lineHeight:1.9,marginBottom:"1rem"}}>Robot LAB 是专注机器人领域的 AI 智能资讯平台，每天早上 8 点自动更新。</p>
             <div style={{border:"1px solid rgba(99,179,237,0.12)",borderRadius:8,overflow:"hidden"}}>
               <div style={{background:"#1a2035",padding:"9px 14px",fontFamily:"monospace",fontSize:11,color:"#00e5ff"}}>SYSTEM INFO</div>
@@ -128,7 +128,7 @@ export default function RobotLab(){
           </div>}
         </main>
       </div>
-      <div style={S.statusBar}><span style={S.sDot}/><span style={{flex:1}}>每日 08:00 自动更新 · {updateTime}</span><span>Robot LAB v2.0</span></div>
+      <div style={S.statusBar}><span style={S.sDot}/><span style={{flex:1}}>每日 08:00 自动更新 · {updateTime}</span><span>Dr. Mao | Robot LAB v2.0</span></div>
     </div>
   </>);
 }
