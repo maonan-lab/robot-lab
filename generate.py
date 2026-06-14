@@ -1,7 +1,9 @@
 import urllib.request, json, datetime, os, re, time
 
 api_key = os.environ['ANTHROPIC_API_KEY']
-today = datetime.date.today().strftime('%Y\u5e74%-m\u6708%-d\u65e5')
+today_date = datetime.date.today()
+today = today_date.strftime('%Y\u5e74%-m\u6708%-d\u65e5')
+today_iso = today_date.isoformat()  # e.g. 2026-06-14
 
 def call_claude(prompt):
     payload = json.dumps({
@@ -44,18 +46,21 @@ now = datetime.datetime.utcnow().isoformat() + 'Z'
 os.makedirs('public/data', exist_ok=True)
 
 news_prompt = (
-    'Search for the latest robotics news today (' + today + ') and return as pure JSON only. '
-    'Search for: humanoid robots (Figure AI, 1X, Unitree, Boston Dynamics), '
-    'robot open source on GitHub, arXiv cs.RO papers, robotics industry news, RL breakthroughs. '
-    'CRITICAL: Output ONLY raw JSON, no markdown. '
-    'Format: {"items":[{"title":"Chinese title","summary":"Chinese 2-3 sentence summary",'
-    '"reason":"Chinese reason","source":"Source name","time":"\u4eca\u65e5",'
+    'Today is ' + today_iso + ' (' + today + '). '
+    'Search for robotics news published TODAY (' + today_iso + ') or in the last 24 hours. '
+    'Focus on: humanoid robots (Figure AI, 1X, Unitree, Boston Dynamics, Tesla Optimus), '
+    'robot open source projects on GitHub, arXiv cs.RO papers submitted today, '
+    'robotics industry news, RL/imitation learning breakthroughs. '
+    'IMPORTANT: Only include news from ' + today_iso + ' or yesterday. Skip older news. '
+    'Return as pure JSON only, no markdown: '
+    '{"items":[{"title":"Chinese title","summary":"Chinese 2-3 sentence summary",'
+    '"reason":"Chinese one sentence reason","source":"Source name","time":"\u4eca\u65e5",'
     '"category":"hardware or software or paper or industry or opensource",'
-    '"score":75,"tags":["tag"],"url":"real URL or empty string"}],"total_searched":80} '
-    'Return 8-10 items with real URLs where found. JSON only.'
+    '"score":75,"tags":["tag"],"url":"actual article URL"}],"total_searched":80} '
+    'Return 8-10 items. Include real URLs. JSON only.'
 )
 
-print('Searching robot news for ' + today + '...')
+print('Searching latest robot news for ' + today + ' (' + today_iso + ')...')
 news_text = call_claude(news_prompt)
 news = extract_json(news_text)
 news['generatedAt'] = now
@@ -66,11 +71,12 @@ print('News done: ' + str(len(news.get('items', []))) + ' items')
 time.sleep(3)
 
 daily_prompt = (
-    'Search for today (' + today + ') robotics news and create a digest. '
+    'Today is ' + today_iso + '. '
+    'Search for robotics news from TODAY (' + today_iso + ') and create a digest. '
     'Output ONLY raw JSON: '
-    '{"sections":[{"title":"section name in Chinese","items":["item1","item2","item3"]}]} '
+    '{"sections":[{"title":"section name in Chinese","items":["news item in Chinese","item2","item3"]}]} '
     'Use 4 sections: \u786c\u4ef6\u53d1\u5e03, \u5f00\u6e90\u9879\u76ee, \u8bba\u6587\u901f\u9012, \u4ea7\u4e1a\u52a8\u6001. '
-    'Each 3-4 items in Chinese. JSON only.'
+    'Each 3-4 items in Chinese about TODAY news. JSON only.'
 )
 
 print('Generating daily digest...')
