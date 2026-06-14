@@ -19,7 +19,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python3 << 'PYEOF'
-          import urllib.request, urllib.error, json, datetime, os, sys
+          import urllib.request, json, datetime, os, re, time
 
           api_key = os.environ['ANTHROPIC_API_KEY']
           today = datetime.date.today().strftime('%Y年%-m月%-d日')
@@ -27,7 +27,8 @@ jobs:
           def call_claude(prompt):
               payload = json.dumps({
                   "model": "claude-sonnet-4-20250514",
-                  "max_tokens": 3000,
+                  "max_tokens": 4000,
+                  "tools": [{"type": "web_search_20250305", "name": "web_search"}],
                   "messages": [{"role": "user", "content": prompt}]
               }).encode('utf-8')
               req = urllib.request.Request(
@@ -39,7 +40,7 @@ jobs:
                       'content-type': 'application/json'
                   }
               )
-              with urllib.request.urlopen(req, timeout=60) as resp:
+              with urllib.request.urlopen(req, timeout=120) as resp:
                   data = json.loads(resp.read())
               return ''.join(b['text'] for b in data['content'] if b['type'] == 'text')
 
@@ -52,33 +53,43 @@ jobs:
                       depth -= 1
                       if depth == 0: e = i; break
               raw = text[s:e+1]
-              raw = raw.replace('\u201c','"').replace('\u201d','"')
-              import re
+              raw = raw.replace('\u201c', '"').replace('\u201d', '"')
               raw = re.sub(r',\s*([}\]])', r'\1', raw)
+              raw = re.sub(r'"([^"\\]*(\\.[^"\\]*)*)"', lambda m: m.group(0).replace('\n', '\\n').replace('\r', '\\r'), raw)
               return json.loads(raw)
 
           now = datetime.datetime.utcnow().isoformat() + 'Z'
+          os.makedirs('public/data', exist_ok=True)
 
-          # News
-          print(f'Generating news for {today}...')
-          news_prompt = f'你是机器人领域资讯编辑。生成今天({today})机器人领域8-10条资讯，涵盖人形机器人、开源框架、论文、产业融资。严格只输出JSON不要有任何其他文字：{{"items":[{{"title":"标题","summary":"摘要单行","reason":"推荐理由","source":"来源","time":"今日","category":"hardware或software或paper或industry或opensource","score":75,"tags":["标签"],"url":""}}],"total_searched":80}}'
+          # News with web search
+          print(f'Searching latest robot news for {today}...')
+          news_prompt = f'''Search for the latest robotics news today ({today}) and return as pure JSON only.
+Search for: humanoid robots (Figure AI, 1X, Unitree, Boston Dynamics), robot open source projects on GitHub, arXiv cs.RO papers, robotics industry news, RL/imitation learning breakthroughs.
+CRITICAL: Output ONLY raw JSON, no markdown, no explanation.
+Format: {{"items":[{{"title":"Title in Chinese","summary":"2-3 sentence summary in Chinese","reason":"Why this matters in Chinese","source":"Source name","time":"今日","category":"hardware or software or paper or industry or opensource","score":75,"tags":["tag1"],"url":"actual URL if found or empty string"}}],"total_searched":80}}
+Return 8-10 items with REAL URLs where possible. JSON only.'''
+
           news_text = call_claude(news_prompt)
           news = extract_json(news_text)
           news['generatedAt'] = now
-          os.makedirs('public/data', exist_ok=True)
           with open('public/data/news.json', 'w', encoding='utf-8') as f:
               json.dump(news, f, ensure_ascii=False, indent=2)
-          print(f'News done: {len(news.get("items",[]))} items')
+          print(f'News done: {len(news.get("items", []))} items')
 
-          # Daily
+          time.sleep(3)
+
+          # Daily digest with web search
           print('Generating daily digest...')
-          daily_prompt = f'生成今天({today})的机器人日报。严格只输出JSON不要有任何其他文字：{{"sections":[{{"title":"版块名","items":["要闻1","要闻2","要闻3"]}}]}}，固定4版块：硬件发布、开源项目、论文速递、产业动态，每版块3-4条。'
+          daily_prompt = f'''Search for today's ({today}) robotics news and create a daily digest. Output ONLY raw JSON:
+{{"sections":[{{"title":"Section name in Chinese","items":["News item in Chinese with source","Item 2","Item 3"]}}]}}
+Use exactly 4 sections: 硬件发布, 开源项目, 论文速递, 产业动态. Each 3-4 items. JSON only.'''
+
           daily_text = call_claude(daily_prompt)
           daily = extract_json(daily_text)
           daily['generatedAt'] = now
           with open('public/data/daily.json', 'w', encoding='utf-8') as f:
               json.dump(daily, f, ensure_ascii=False, indent=2)
-          print(f'Daily done: {len(daily.get("sections",[]))} sections')
+          print(f'Daily done: {len(daily.get("sections", []))} sections')
           PYEOF
 
       - name: Commit and push
