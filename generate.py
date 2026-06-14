@@ -3,7 +3,7 @@ import urllib.request, json, datetime, os, re, time
 api_key = os.environ['ANTHROPIC_API_KEY']
 today_date = datetime.date.today()
 today = today_date.strftime('%Y\u5e74%-m\u6708%-d\u65e5')
-today_iso = today_date.isoformat()  # e.g. 2026-06-14
+today_iso = today_date.isoformat()
 
 def call_claude(prompt):
     payload = json.dumps({
@@ -64,7 +64,12 @@ print('Searching latest robot news for ' + today + ' (' + today_iso + ')...')
 news_text = call_claude(news_prompt)
 news = extract_json(news_text)
 news['generatedAt'] = now
+news['date'] = today_iso
+
+# Save as today's archive AND as latest
 with open('public/data/news.json', 'w', encoding='utf-8') as f:
+    json.dump(news, f, ensure_ascii=False, indent=2)
+with open('public/data/news-' + today_iso + '.json', 'w', encoding='utf-8') as f:
     json.dump(news, f, ensure_ascii=False, indent=2)
 print('News done: ' + str(len(news.get('items', []))) + ' items')
 
@@ -83,6 +88,26 @@ print('Generating daily digest...')
 daily_text = call_claude(daily_prompt)
 daily = extract_json(daily_text)
 daily['generatedAt'] = now
+daily['date'] = today_iso
+
 with open('public/data/daily.json', 'w', encoding='utf-8') as f:
     json.dump(daily, f, ensure_ascii=False, indent=2)
+with open('public/data/daily-' + today_iso + '.json', 'w', encoding='utf-8') as f:
+    json.dump(daily, f, ensure_ascii=False, indent=2)
 print('Daily done: ' + str(len(daily.get('sections', []))) + ' sections')
+
+# Update index file - lists all available dates
+index_file = 'public/data/index.json'
+if os.path.exists(index_file):
+    with open(index_file) as f:
+        idx = json.load(f)
+else:
+    idx = {"dates": []}
+
+if today_iso not in idx["dates"]:
+    idx["dates"].insert(0, today_iso)
+    idx["dates"] = idx["dates"][:30]  # keep last 30 days
+
+with open(index_file, 'w') as f:
+    json.dump(idx, f, indent=2)
+print('Index updated: ' + str(len(idx["dates"])) + ' dates')
