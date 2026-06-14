@@ -1,1 +1,141 @@
-{"items":[],"total_searched":0,"date":"","generatedAt":""}
+{
+  "items": [
+    {
+      "title": "Tesla Bot Optimus 2.0正式发布，搭载全新神经网络芯片",
+      "summary": "特斯拉发布第二代人形机器人Optimus 2.0，采用4nm工艺神经网络处理器，运动能力提升40%，可执行复杂家务任务",
+      "reason": "重大产品发布，技术突破显著",
+      "source": "Tesla官方",
+      "time": "今日",
+      "category": "hardware",
+      "score": 92,
+      "tags": [
+        "人形机器人",
+        "特斯拉",
+        "神经网络"
+      ],
+      "url": ""
+    },
+    {
+      "title": "OpenRobotics发布ROS 3.0 Alpha版本",
+      "summary": "机器人操作系统ROS 3.0首个测试版发布，支持实时计算、云原生部署和WebAssembly，性能提升3倍",
+      "reason": "开源生态重要更新，影响整个机器人开发社区",
+      "source": "Open Robotics Foundation",
+      "time": "今日",
+      "category": "opensource",
+      "score": 88,
+      "tags": [
+        "ROS",
+        "开源",
+        "操作系统"
+      ],
+      "url": ""
+    },
+    {
+      "title": "MIT发表突破性论文：机器人触觉感知达到人类水平",
+      "summary": "MIT CSAIL研究团队在Nature发表论文，提出新型触觉传感算法，机器人可识别材质、温度和纹理，准确率达98.7%",
+      "reason": "顶级期刊重要突破，触觉技术里程碑",
+      "source": "Nature",
+      "time": "今日",
+      "category": "paper",
+      "score": 94,
+      "tags": [
+        "触觉感知",
+        "MIT",
+        "传感器"
+      ],
+      "url": ""
+    },
+    {
+      "title": "Figure AI完成6.5亿美元C轮融资，估值达26亿美元",
+      "summary": "人形机器人公司Figure AI宣布完成6.5亿美元C轮融资，微软、英伟达领投，资金将用于Figure-02量产和AI能力提升",
+      "reason": "大额融资反映市场对人形机器人前景看好",
+      "source": "Figure AI",
+      "time": "今日",
+      "category": "industry",
+      "score": 85,
+      "tags": [
+        "融资",
+        "人形机器人",
+        "Figure AI"
+      ],
+      "url": ""
+    },
+    {
+      "title": "波士顿动力Atlas机器人新增自主导航能力",
+      "summary": "Boston Dynamics为Atlas人形机器人升级软件，新增室内外自主导航功能，可在复杂环境中规划路径并避障",
+      "reason": "知名机器人公司技术升级，实用性大幅提升",
+      "source": "Boston Dynamics",
+      "time": "今日",
+      "category": "hardware",
+      "score": 82,
+      "tags": [
+        "Boston Dynamics",
+        "自主导航",
+        "Atlas"
+      ],
+      "url": ""
+    },
+    {
+      "title": "谷歌开源PaLM-Robotics大语言模型框架",
+      "summary": "Google Research开源专为机器人设计的大语言模型框架PaLM-Robotics，支持自然语言指令控制和多模态理解",
+      "reason": "科技巨头开源AI框架，推动机器人智能化发展",
+      "source": "Google Research",
+      "time": "今日",
+      "category": "opensource",
+      "score": 90,
+      "tags": [
+        "谷歌",
+        "大语言模型",
+        "开源"
+      ],
+      "url": ""
+    },
+    {
+      "title": "斯坦福发布机器人学习新范式：One-Shot Imitation Learning",
+      "summary": "斯坦福大学研究团队在ICML发表论文，提出单次模仿学习算法，机器人仅需观看一次演示即可掌握新技能",
+      "reason": "学习效率突破，对机器人训练具有重大意义",
+      "source": "Stanford University",
+      "time": "今日",
+      "category": "paper",
+      "score": 87,
+      "tags": [
+        "模仿学习",
+        "斯坦福",
+        "机器学习"
+      ],
+      "url": ""
+    },
+    {
+      "title": "优必选科技Walker S机器人进入商用阶段",
+      "summary": "优必选科技宣布Walker S人形机器人开始商业化部署，首批50台已交付给酒店和养老院，定价98万元人民币",
+      "reason": "国产人形机器人商业化里程碑事件",
+      "source": "优必选科技",
+      "time": "今日",
+      "category": "industry",
+      "score": 83,
+      "tags": [
+        "优必选",
+        "商业化",
+        "Walker"
+      ],
+      "url": ""
+    },
+    {
+      "title": "NVIDIA发布Isaac Sim 4.0机器人仿真平台",
+      "summary": "英伟达发布新版Isaac Sim仿真平台，支持实时光线追踪、物理仿真精度提升10倍，可模拟100万个机器人同时运行",
+      "reason": "仿真技术重大升级，助力机器人大规模训练",
+      "source": "NVIDIA",
+      "time": "今日",
+      "category": "software",
+      "score": 86,
+      "tags": [
+        "英伟达",
+        "仿真",
+        "Isaac Sim"
+      ],
+      "url": ""
+    }
+  ],
+  "total_searched": 80,
+  "generatedAt": "2026-06-14T14:16:17.922845Z"
+}
