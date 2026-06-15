@@ -1,167 +1,142 @@
 {
   "items": [
     {
-      "title": "Figure AI达到39亿美元估值，BotQ工厂实现每小时一台Figure 03生产",
-      "summary": "Figure AI的BotQ工厂在6月2026年达到重要里程碑，现可每小时生产一台Figure 03机器人，估值从26亿美元跳升至390亿美元，增幅15倍。同时波士顿动力电动Atlas开始首批交付",
-      "reason": "展示了人形机器人行业从原型转向规模化商业部署的重要转折点，具有重大产业意义",
+      "title": "XRZero-G0 开源机器人数据收集框架发布",
+      "summary": "X Square Robot 开源了 XRZero-G0 硬件-软件框架，通过人工演示收集机器人训练数据，将真实机器人数据需求减少20倍，同时发布2000小时的G0-Dataset多模态数据集",
+      "reason": "重要的开源机器人框架突破，显著减少数据收集成本",
+      "source": "The Robot Report",
+      "time": "今日",
+      "category": "opensource",
+      "score": 95,
+      "tags": [
+        "开源",
+        "数据集",
+        "机器学习"
+      ],
+      "url": "https://www.therobotreport.com/inside-xrzero-g0-a-new-2000-hour-open-dataset-for-robotics-research/"
+    },
+    {
+      "title": "Figure AI 实现每小时生产1台Figure 03机器人",
+      "summary": "Figure AI的BotQ工厂达到产能里程碑，Figure 03人形机器人生产速度提升至每小时1台，同时波士顿动力电动Atlas开始向现代汽车和DeepMind发货",
+      "reason": "人形机器人制造规模化的重大突破",
       "source": "Humanoid Press",
       "time": "今日",
       "category": "hardware",
-      "score": 92,
+      "score": 90,
       "tags": [
         "人形机器人",
-        "生产",
-        "估值",
-        "Figure AI"
+        "制造",
+        "量产"
       ],
       "url": "https://www.humanoid.press/"
     },
     {
-      "title": "特斯拉Optimus第三代生产爬坡，目标2026年夏季量产",
-      "summary": "特斯拉正在德克萨斯超级工厂和弗里蒙特工厂加速Optimus第三代机器人的生产。目前已有1000台Optimus机器人在工厂内部署，展现了从内部测试向商业化的重要进展",
-      "reason": "特斯拉在人形机器人领域的最新进展，标志着该技术向实际应用的重大突破",
-      "source": "Humanoid Press",
+      "title": "Tesla Optimus在德州超级工厂大规模部署",
+      "summary": "Tesla确认已有超过1000台Optimus人形机器人在德州超级工厂工作，执行零件分拣、搬运和质检任务，马斯克宣布2026年底将开放$20000的家用版本购买",
+      "reason": "人形机器人首次实现千台级别的工业化应用",
+      "source": "Robot News Today",
       "time": "今日",
-      "category": "hardware",
-      "score": 89,
+      "category": "industry",
+      "score": 92,
       "tags": [
-        "特斯拉",
-        "Optimus",
-        "量产",
-        "人形机器人"
+        "Tesla",
+        "工业应用",
+        "大规模部署"
       ],
       "url": "https://robotnewstoday.com/"
     },
     {
-      "title": "Unitree开源UnifoLM-VLA-0视觉语言行动模型",
-      "summary": "Unitree发布开源Vision-Language-Action模型UnifoLM-VLA-0，使G1机器人能够自主执行家庭任务。这是中国机器人公司在开源AI模型方面的重要贡献",
-      "reason": "开源模型推动整个机器人行业发展，具有重要的技术共享价值",
-      "source": "Robozaps Blog",
-      "time": "今日",
-      "category": "opensource",
-      "score": 85,
-      "tags": [
-        "开源",
-        "VLA模型",
-        "Unitree",
-        "AI"
-      ],
-      "url": ""
-    },
-    {
-      "title": "波士顿动力Atlas获CES 2026最佳机器人奖，现代工厂优先部署",
-      "summary": "波士顿动力电动Atlas在CES 2026获最佳机器人奖，现代汽车优先考虑工业部署而非家用。Atlas首批2026年产品正向现代和DeepMind发货",
-      "reason": "行业权威奖项认可，展示了先进机器人技术在工业应用的领先地位",
+      "title": "Unitree已出货5500+台人形机器人",
+      "summary": "中国Unitree机器人公司2025年已出货5500多台人形机器人，G1型号售价仅16000美元，在商业化进度上领先多数竞争对手",
+      "reason": "中国人形机器人在商业化方面的显著进展",
       "source": "Humanoid Press",
       "time": "今日",
-      "category": "hardware",
+      "category": "industry",
       "score": 88,
       "tags": [
-        "波士顿动力",
-        "Atlas",
-        "CES奖项",
-        "工业机器人"
+        "中国制造",
+        "商业化",
+        "低成本"
       ],
       "url": "https://www.humanoid.press/"
     },
     {
-      "title": "NVIDIA发布Isaac Lab-Arena开源框架，支持大规模机器人策略评估",
-      "summary": "NVIDIA在GitHub发布开源Isaac Lab-Arena框架，提供协作式大规模机器人策略评估和基准测试系统。该框架与行业领先基准连接，简化复杂管道",
-      "reason": "NVIDIA的开源贡献将推动机器人开发工作流程的标准化和效率提升",
-      "source": "Engineering.com",
+      "title": "GENISOM AI在ICRA 2026展示可部署机器人平台",
+      "summary": "GENISOM AI在ICRA 2026机器人大会上首次亮相，展示其可部署的机器人平台技术，专注于边缘AI在机器人领域的应用普及",
+      "reason": "新兴机器人公司的技术突破",
+      "source": "The Robot Report",
+      "time": "今日",
+      "category": "industry",
+      "score": 75,
+      "tags": [
+        "AI平台",
+        "ICRA",
+        "边缘计算"
+      ],
+      "url": "https://www.therobotreport.com/"
+    },
+    {
+      "title": "RLinf强化学习框架支持多平台机器人",
+      "summary": "RLinf v0.2开源发布，支持Franka真实机器人的强化学习训练、RoboCasa微调、世界模型VLA训练等多种前沿技术",
+      "reason": "机器人强化学习领域的重要开源工具",
+      "source": "GitHub RLinf",
       "time": "今日",
       "category": "opensource",
       "score": 82,
       "tags": [
-        "NVIDIA",
-        "开源框架",
-        "仿真",
-        "评估"
-      ],
-      "url": "https://www.engineering.com/nvidia-expands-open-source-tools-for-physical-ai-and-robotics/"
-    },
-    {
-      "title": "中国Honor Lightning机器人在北京半程马拉松创纪录",
-      "summary": "Honor的Lightning人形机器人在4月19日北京E-Town半程马拉松中以50分26秒的成绩获胜，超越人类世界纪录，在自主导航和耐力方面展现重大进步",
-      "reason": "展示了中国机器人在运动能力和自主导航方面的突破性进展",
-      "source": "Humanoid Press",
-      "time": "今日",
-      "category": "hardware",
-      "score": 86,
-      "tags": [
-        "Honor",
-        "机器人马拉松",
-        "自主导航",
-        "中国机器人"
-      ],
-      "url": "https://www.humanoid.press/"
-    },
-    {
-      "title": "SimpleVLA-RL强化学习框架提升机器人视觉行动能力",
-      "summary": "研究团队推出SimpleVLA-RL框架，利用强化学习训练视觉语言行动模型，显著减少对大型数据集的需求，在LIBERO和RoboTwin基准上超越监督学习方法",
-      "reason": "解决了机器人学习中的关键挑战，为更适应性和智能的机器人系统开辟道路",
-      "source": "Quantum Zeitgeist",
-      "time": "今日",
-      "category": "software",
-      "score": 84,
-      "tags": [
         "强化学习",
-        "VLA",
-        "机器人学习",
-        "突破"
+        "开源",
+        "VLA"
       ],
-      "url": ""
+      "url": "https://github.com/RLinf/RLinf"
     },
     {
-      "title": "机器人行业2025年融资达276亿美元，增长101%",
-      "summary": "根据PitchBook数据，2025年全球机器人融资达276亿美元，较2024年的137亿美元增长近101%。劳动力短缺、人口老龄化和AI进步推动各行业自动化加速",
-      "reason": "展示了机器人行业投资热度和市场前景，反映了行业快速发展趋势",
-      "source": "TechFundingNews",
+      "title": "中国人形机器人企业竞相IPO",
+      "summary": "据报道中国人形机器人制造商正竞相上市，反映出该领域的快速发展和资本市场的高度关注",
+      "reason": "行业资本化趋势的重要信号",
+      "source": "AI News Today",
       "time": "今日",
       "category": "industry",
-      "score": 87,
+      "score": 78,
       "tags": [
-        "融资",
-        "投资",
-        "行业增长",
-        "自动化"
+        "IPO",
+        "中国市场",
+        "投资"
       ],
-      "url": ""
+      "url": "https://unrot.co/blogs/ai-news-today-june-15-2026"
     },
     {
-      "title": "人形机器人和通用机器人成2025-2026年资金最多细分领域",
-      "summary": "Skild AI获得14亿美元融资等案例显示，人形机器人和通用机器人代表2025-2026年增长最快、资金最充足的细分领域，多数为C轮及后期轮次",
-      "reason": "标志着人形机器人技术进入商业化成熟阶段，获得重大投资认可",
-      "source": "Growth List",
-      "time": "今日",
-      "category": "industry",
-      "score": 83,
-      "tags": [
-        "人形机器人",
-        "融资",
-        "通用机器人",
-        "Skild AI"
-      ],
-      "url": "https://growthlist.co/robotics-startups/"
-    },
-    {
-      "title": "arXiv机器人学最新论文：从人类视频到机器人操作的可扩展学习",
-      "summary": "最新arXiv cs.RO论文调研了基于人类中心数据的可扩展视觉语言行动学习，已被IJCAI 2026调研轨道接收。涵盖强化学习在机器人参数识别中的最优实验设计",
-      "reason": "学术前沿研究为机器人学习和操作技能获取提供了重要理论基础",
+      "title": "RSL-RL机器人学习库发布",
+      "summary": "ETH苏黎世发布RSL-RL强化学习库，专为机器人研究设计，在仿真基准和真实机器人实验中验证有效性，提供轻量级可扩展框架",
+      "reason": "学术界机器人学习工具的重要贡献",
       "source": "arXiv",
       "time": "今日",
       "category": "paper",
-      "score": 79,
+      "score": 80,
       "tags": [
-        "学术论文",
-        "机器人学习",
-        "IJCAI",
-        "视觉语言"
+        "学术研究",
+        "强化学习",
+        "开源库"
       ],
-      "url": "https://arxiv.org/list/cs.RO/current"
+      "url": "https://arxiv.org/pdf/2509.10771"
+    },
+    {
+      "title": "6自由度果园收获机械臂路径规划算法",
+      "summary": "基于RGB-D相机和Bi-RRT算法的6自由度果园收获机械臂无碰撞路径规划方法，使用RealSense D455相机实现果实检测和3D障碍物地图重建",
+      "reason": "农业机器人技术的实际应用突破",
+      "source": "NCBI",
+      "time": "今日",
+      "category": "paper",
+      "score": 73,
+      "tags": [
+        "农业机器人",
+        "路径规划",
+        "计算机视觉"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11679798/"
     }
   ],
-  "total_searched": 85,
-  "generatedAt": "2026-06-15T04:36:42.446660+00:00",
+  "total_searched": 89,
+  "generatedAt": "2026-06-15T04:51:42.430010+00:00",
   "date": "2026-06-15"
 }
