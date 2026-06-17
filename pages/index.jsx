@@ -74,9 +74,9 @@ export default function RobotLab(){
   const[todayStr,setTodayStr]=useState("");
   useEffect(()=>{
     setTodayStr(new Date().toLocaleDateString("zh-CN",{month:"long",day:"numeric",weekday:"short"}));
-    fetch("/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/data/news-"+latest+".json":"/data/news.json";return fetch(url).then(r=>r.json());}).then(data=>{setNews(data.items||[]);setGeneratedAt(data.generatedAt||"");setLoading(false);}).catch(()=>setLoading(false));
+    fetch("/robot-lab/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/robot-lab/data/news-"+latest+".json":"/robot-lab/data/news.json";return fetch(url).then(r=>r.json());}).then(data=>{setNews(data.items||[]);setGeneratedAt(data.generatedAt||"");setLoading(false);}).catch(()=>setLoading(false));
   },[]);
-  useEffect(()=>{if(tab==="daily"&&!daily){fetch("/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/data/daily-"+latest+".json":"/data/daily.json";return fetch(url).then(r=>r.json());}).then(data=>setDaily(data.sections||[])).catch(()=>{});}},[tab]);
+  useEffect(()=>{if(tab==="daily"&&!daily){fetch("/robot-lab/data/index.json").then(r=>r.json()).then(idx=>{const latest=idx.dates&&idx.dates[0];const url=latest?"/robot-lab/data/daily-"+latest+".json":"/robot-lab/data/daily.json";return fetch(url).then(r=>r.json());}).then(data=>setDaily(data.sections||[])).catch(()=>{});}},[tab]);
   const counts={all:news.length,hardware:news.filter(n=>n.category==="hardware").length,software:news.filter(n=>n.category==="software").length,paper:news.filter(n=>n.category==="paper").length,industry:news.filter(n=>n.category==="industry").length,opensource:news.filter(n=>n.category==="opensource").length};
   let filtered=[...news];
   if(cat!=="all")filtered=filtered.filter(n=>n.category===cat);
